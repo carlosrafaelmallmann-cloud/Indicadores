@@ -1,1 +1,51 @@
+name: Coleta de indicadores
 
+on:
+  schedule:
+    - cron: "0 9 5,20 * *"
+  workflow_dispatch:
+    inputs:
+      fontes:
+        description: "Fontes a coletar (separadas por espaço). Vazio = todas."
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coleta-indicadores
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Obter o repositório
+        uses: actions/checkout@v4
+
+      - name: Preparar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Instalar dependências
+        run: pip install -r requirements.txt
+
+      - name: Executar os coletores
+        run: python -m coletores.executar ${{ github.event.inputs.fontes }}
+
+      - name: Publicar os dados atualizados
+        run: |
+          if [ -z "$(git status --porcelain dados/)" ]; then
+            echo "Nenhuma alteração nos dados — nada a publicar."
+            exit 0
+          fi
+          git config user.name  "coleta-automatica"
+          git config user.email "actions@github.com"
+          git add dados/
+          git commit -m "Coleta de indicadores — $(date -u '+%Y-%m-%d')"
+          git push
