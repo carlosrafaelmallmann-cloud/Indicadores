@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Indicadores de Estrela · Rio Grande do Sul</title>
+<meta name="description" content="Painel público de indicadores do município de Estrela/RS, com dados oficiais do IBGE, do Tesouro Nacional e do Ministério do Trabalho e Emprego.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=Public+Sans:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tinta:#0E2230;
+  --tinta-media:#26414F;
+  --papel:#EEF1F0;
+  --papel-alto:#F8FAF9;
+  --rio:#157A72;
+  --ouro:#B8892B;
+  --tijolo:#9E3B2E;
+  --cinza:#6C7C85;
+  --linha:#D2D9D7;
+  --display:'Archivo',system-ui,sans-serif;
+  --texto:'Public Sans',system-ui,sans-serif;
+  --dado:'IBM Plex Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:var(--texto);font-size:16px;line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+.envoltorio{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- Cabeçalho ---------- */
+.cabecalho{border-bottom:2px solid var(--tinta);background:var(--papel-alto)}
+.cabecalho .envoltorio{
+  display:flex;flex-wrap:wrap;gap:28px;align-items:flex-end;
+  justify-content:space-between;padding-top:34px;padding-bottom:22px;
+}
+.sobrenome{
+  font-family:var(--dado);font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--rio);margin:0 0 6px;
+}
+.titulo{
+  font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,7vw,4.4rem);
+  letter-spacing:-.035em;line-height:.9;margin:0;
+}
+.subtitulo{
+  font-family:var(--dado);font-size:.78rem;color:var(--cinza);
+  margin:10px 0 0;letter-spacing:.03em;
+}
+
+/* ---------- Estado da coleta ---------- */
+.estado{min-width:250px}
+.estado h2{
+  font-family:var(--dado);font-size:.68rem;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--cinza);margin:0 0 8px;font-weight:500;
+}
+.estado ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.estado li{
+  display:grid;grid-template-columns:9px 1fr auto;gap:9px;align-items:center;
+  font-family:var(--dado);font-size:.72rem;color:var(--tinta-media);
+}
+.pulso{width:9px;height:9px;border-radius:50%;background:var(--cinza)}
+.pulso.ok{background:var(--rio)}
+.pulso.parcial{background:var(--ouro)}
+.pulso.falha{background:var(--tijolo)}
+.estado .rotulo-estado{text-align:right;color:var(--cinza);letter-spacing:.08em;text-transform:uppercase;font-size:.66rem}
+
+/* ---------- Filtros ---------- */
+.filtros{
+  position:sticky;top:0;z-index:5;background:var(--papel);
+  border-bottom:1px solid var(--linha);
+}
+.filtros .envoltorio{display:flex;gap:4px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:thin}
+.aba{
+  flex:0 0 auto;background:none;border:1px solid transparent;border-radius:999px;
+  padding:6px 15px;font-family:var(--dado);font-size:.74rem;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--tinta-media);cursor:pointer;
+  transition:background .18s,color .18s,border-color .18s;
+}
+.aba:hover{border-color:var(--linha)}
+.aba[aria-selected="true"]{background:var(--tinta);color:var(--papel-alto)}
+.aba:focus-visible{outline:2px solid var(--rio);outline-offset:2px}
+
+/* ---------- Grade ---------- */
+.grade{
+  display:grid;gap:1px;background:var(--linha);
+  border:1px solid var(--linha);margin:26px 0 44px;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+}
+.cartao{
+  position:relative;background:var(--papel-alto);padding:20px 20px 16px;
+  display:flex;flex-direction:column;min-height:230px;
+  border:none;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%;
+  transition:background .18s;
+}
+.cartao:hover{background:#fff}
+.cartao:focus-visible{outline:2px solid var(--rio);outline-offset:-2px}
+.fonte-eyebrow{
+  font-family:var(--dado);font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rio);margin-bottom:9px;
+}
+.nome-indicador{
+  font-family:var(--display);font-weight:600;font-size:1.02rem;line-height:1.25;
+  letter-spacing:-.012em;margin:0 0 auto;padding-right:52px;
+}
+.valor{
+  font-family:var(--dado);font-weight:500;font-size:clamp(1.7rem,4.6vw,2.15rem);
+  letter-spacing:-.045em;margin:20px 0 0;line-height:1;
+}
+.valor .unidade{font-size:.72rem;letter-spacing:.06em;color:var(--cinza);margin-left:7px}
+.rodape-cartao{
+  display:flex;justify-content:space-between;align-items:flex-end;gap:12px;
+  margin-top:12px;font-family:var(--dado);font-size:.7rem;color:var(--cinza);
+}
+.variacao{font-weight:600}
+.variacao.sobe{color:var(--rio)}
+.variacao.desce{color:var(--tijolo)}
+.faisca{display:block;width:100%;height:30px;margin-top:12px;overflow:visible}
+
+/* ---------- Carimbo (elemento de assinatura) ---------- */
+.carimbo{
+  position:absolute;top:16px;right:16px;transform:rotate(-9deg);
+  border:1.5px dashed currentColor;border-radius:3px;padding:3px 7px 2px;
+  font-family:var(--dado);font-size:.55rem;font-weight:600;letter-spacing:.12em;
+  text-transform:uppercase;line-height:1.15;text-align:center;opacity:.62;
+  pointer-events:none;
+}
+.carimbo.automatico{color:var(--rio)}
+.carimbo.manual{color:var(--ouro)}
+.carimbo.conservado{color:var(--tijolo)}
+.carimbo small{display:block;font-size:.5rem;font-weight:400;letter-spacing:.06em;opacity:.85}
+
+/* ---------- Verso ---------- */
+.verso{
+  border-top:1px dashed var(--linha);margin-top:14px;padding-top:12px;
+  font-family:var(--dado);font-size:.7rem;color:var(--tinta-media);
+  display:grid;gap:5px;
+}
+.verso[hidden]{display:none}
+.verso dl{display:grid;grid-template-columns:auto 1fr;gap:3px 10px;margin:0}
+.verso dt{color:var(--cinza);letter-spacing:.06em;text-transform:uppercase;font-size:.6rem;padding-top:2px}
+.verso dd{margin:0;word-break:break-word}
+.verso a{color:var(--rio)}
+.nota{font-family:var(--texto);font-size:.78rem;line-height:1.45;color:var(--tinta-media);margin:2px 0 0}
+
+/* ---------- Vazio e rodapé ---------- */
+.vazio{padding:56px 0;text-align:center;color:var(--cinza);font-family:var(--dado);font-size:.82rem}
+.rodape{border-top:2px solid var(--tinta);background:var(--papel-alto);padding:30px 0 46px}
+.rodape .envoltorio{display:grid;gap:16px}
+.rodape p{margin:0;font-size:.84rem;color:var(--tinta-media);max-width:66ch}
+.rodape .selo{font-family:var(--dado);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza)}
+.rodape a{color:var(--rio)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (max-width:640px){
+  .cabecalho .envoltorio{padding-top:26px;gap:20px}
+  .estado{min-width:100%}
+  .grade{grid-template-columns:1fr;margin:18px -20px 34px;border-left:0;border-right:0}
+}
+</style>
+</head>
+<body>
+
+<header class="cabecalho">
+  <div class="envoltorio">
+    <div>
+      <p class="sobrenome">Painel público de indicadores</p>
+      <h1 class="titulo">Estrela</h1>
+      <p class="subtitulo" id="identificacao">Rio Grande do Sul · código IBGE 4307807</p>
+    </div>
+    <div class="estado">
+      <h2>Estado da coleta</h2>
+      <ul id="estado-coleta"><li><span class="pulso"></span><span>carregando…</span><span class="rotulo-estado"></span></li></ul>
+    </div>
+  </div>
+</header>
+
+<nav class="filtros" aria-label="Categorias">
+  <div class="envoltorio" id="abas" role="tablist"></div>
+</nav>
+
+<main class="envoltorio">
+  <div class="grade" id="grade"></div>
+  <p class="vazio" id="vazio" hidden></p>
+</main>
+
+<footer class="rodape">
+  <div class="envoltorio">
+    <p class="selo">Procedência dos dados</p>
+    <p>Os valores são coletados diretamente das fontes oficiais e republicados sem tratamento editorial. Toque em qualquer indicador para ver a origem, o período de referência e a data da coleta. Cada atualização fica registrada no histórico do repositório, o que permite conferir quando e como cada número mudou.</p>
+    <p class="selo" id="assinatura"></p>
+  </div>
+</footer>
+
+<script>
+const FORMATOS = {
+  moeda: v => v >= 1e6 ? 'R$ ' + (v/1e6).toLocaleString('pt-BR',{maximumFractionDigits:1}) + ' mi'
+           : 'R$ ' + v.toLocaleString('pt-BR',{maximumFractionDigits:0}),
+  percentual: v => v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2}) + '%',
+  inteiro: v => v.toLocaleString('pt-BR',{maximumFractionDigits:0}),
+  numero: v => v.toLocaleString('pt-BR',{maximumFractionDigits:2})
+};
+
+const formatar = i => (FORMATOS[i.formato] || FORMATOS.numero)(i.valor);
+const escapar = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const dataBR = t => t ? new Date(t).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}) : '—';
+
+function faisca(serie){
+  if (!serie || serie.length < 3) return '';
+  const vs = serie.map(p => p.valor);
+  const min = Math.min(...vs), max = Math.max(...vs), amp = (max - min) || 1;
+  const L = 260, A = 30;
+  const pontos = vs.map((v,i) => [i*(L/(vs.length-1)), A - ((v-min)/amp)*(A-4) - 2]);
+  const linha = pontos.map(p => p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ');
+  const area = `0,${A} ${linha} ${L},${A}`;
+  const [fx,fy] = pontos[pontos.length-1];
+  return `<svg class="faisca" viewBox="0 0 ${L} ${A}" preserveAspectRatio="none" aria-hidden="true">
+    <polygon points="${area}" fill="var(--rio)" opacity=".08"></polygon>
+    <polyline points="${linha}" fill="none" stroke="var(--rio)" stroke-width="1.6"
+      stroke-linejoin="round" vector-effect="non-scaling-stroke"></polyline>
+    <circle cx="${fx.toFixed(1)}" cy="${fy.toFixed(1)}" r="2.6" fill="var(--rio)"></circle>
+  </svg>`;
+}
+
+function variacao(i){
+  if (!i.serie || i.serie.length < 2) return '';
+  const atual = i.serie[i.serie.length-1].valor, antes = i.serie[i.serie.length-2].valor;
+  if (!antes) return '';
+  const pct = ((atual - antes) / Math.abs(antes)) * 100;
+  if (!isFinite(pct) || Math.abs(pct) < 0.05) return '<span class="variacao">estável</span>';
+  const classe = pct > 0 ? 'sobe' : 'desce';
+  const sinal = pct > 0 ? '▲' : '▼';
+  return `<span class="variacao ${classe}">${sinal} ${Math.abs(pct).toLocaleString('pt-BR',{maximumFractionDigits:1})}% · ${escapar(i.serie[i.serie.length-2].periodo)}</span>`;
+}
+
+function cartao(i, indice){
+  const tipo = i.conservado ? 'conservado' : i.origem;
+  const rotuloCarimbo = {automatico:'Automático', manual:'Manual', conservado:'Não atualizado'}[tipo];
+  return `<article class="cartao" tabindex="0" role="button" aria-expanded="false" aria-controls="verso-${indice}">
+    <span class="carimbo ${tipo}">${rotuloCarimbo}<small>${escapar(i.coletado_em || '')}</small></span>
+    <span class="fonte-eyebrow">${escapar(i.fonte)}</span>
+    <span class="nome-indicador">${escapar(i.indicador)}</span>
+    <span class="valor">${formatar(i)}<span class="unidade">${escapar(i.unidade)}</span></span>
+    ${faisca(i.serie)}
+    <span class="rodape-cartao"><span>${escapar(i.periodo)}</span>${variacao(i)}</span>
+    <span class="verso" id="verso-${indice}" hidden>
+      <dl>
+        <dt>Fonte</dt><dd>${escapar(i.fonte_detalhe || i.fonte)}</dd>
+        <dt>Referência</dt><dd>${escapar(i.periodo)}</dd>
+        <dt>Coleta</dt><dd>${escapar(i.coletado_em || '—')}${i.conservado ? ' · valor mantido da coleta anterior' : ''}</dd>
+        ${i.url ? `<dt>Consulta</dt><dd><a href="${escapar(i.url)}" target="_blank" rel="noopener">abrir a fonte oficial</a></dd>` : ''}
+      </dl>
+      ${i.observacao ? `<span class="nota">${escapar(i.observacao)}</span>` : ''}
+    </span>
+  </article>`;
+}
+
+let TUDO = [], categoriaAtiva = 'Todos';
+
+function desenhar(){
+  const grade = document.getElementById('grade');
+  const vazio = document.getElementById('vazio');
+  const lista = categoriaAtiva === 'Todos' ? TUDO : TUDO.filter(i => i.categoria === categoriaAtiva);
+  grade.innerHTML = lista.map(cartao).join('');
+  grade.hidden = !lista.length;
+  vazio.hidden = !!lista.length;
+  vazio.textContent = 'Nenhum indicador nesta categoria.';
+  grade.querySelectorAll('.cartao').forEach(cartao => {
+    const alternar = () => {
+      const verso = cartao.querySelector('.verso');
+      const aberto = !verso.hidden;
+      verso.hidden = aberto;
+      cartao.setAttribute('aria-expanded', String(!aberto));
+    };
+    cartao.addEventListener('click', evento => {
+      if (evento.target.closest('a')) return;   // deixa o link da fonte funcionar
+      alternar();
+    });
+    cartao.addEventListener('keydown', evento => {
+      if (evento.key === 'Enter' || evento.key === ' '){
+        if (evento.target.closest('a')) return;
+        evento.preventDefault();
+        alternar();
+      }
+    });
+  });
+}
+
+function montarAbas(){
+  const categorias = ['Todos', ...new Set(TUDO.map(i => i.categoria))];
+  const abas = document.getElementById('abas');
+  abas.innerHTML = categorias.map(c =>
+    `<button class="aba" role="tab" aria-selected="${c === categoriaAtiva}">${escapar(c)}</button>`).join('');
+  abas.querySelectorAll('.aba').forEach(botao => {
+    botao.addEventListener('click', () => {
+      categoriaAtiva = botao.textContent;
+      abas.querySelectorAll('.aba').forEach(b =>
+        b.setAttribute('aria-selected', String(b === botao)));
+      desenhar();
+    });
+  });
+}
+
+function montarEstado(coletas){
+  const alvo = document.getElementById('estado-coleta');
+  if (!coletas || !coletas.length){
+    alvo.innerHTML = '<li><span class="pulso"></span><span>sem registro de coleta</span><span class="rotulo-estado"></span></li>';
+    return;
+  }
+  alvo.innerHTML = coletas.map(c => `<li>
+    <span class="pulso ${escapar(c.status)}"></span>
+    <span>${escapar(c.fonte)}</span>
+    <span class="rotulo-estado" title="${escapar(c.mensagem || '')}">${escapar(c.status)}</span>
+  </li>`).join('');
+}
+
+(async function iniciar(){
+  try{
+    const resposta = await fetch('dados/indicadores.json?v=' + Date.now(), {cache:'no-store'});
+    if (!resposta.ok) throw new Error('HTTP ' + resposta.status);
+    const dados = await resposta.json();
+    TUDO = (dados.indicadores || []).filter(i => i.valor !== null && i.valor !== undefined);
+    const m = dados.municipio || {};
+    document.getElementById('identificacao').textContent =
+      `${m.uf === 'RS' ? 'Rio Grande do Sul' : m.uf} · código IBGE ${m.codigo_ibge || ''}`;
+    document.getElementById('assinatura').textContent =
+      'Última atualização automática em ' + dataBR(dados.gerado_em);
+    montarEstado(dados.coletas);
+    montarAbas();
+    desenhar();
+  }catch(erro){
+    document.getElementById('grade').hidden = true;
+    const vazio = document.getElementById('vazio');
+    vazio.hidden = false;
+    vazio.textContent = 'Os dados não puderam ser carregados. Verifique se o arquivo dados/indicadores.json foi publicado.';
+    console.error(erro);
+  }
+})();
+</script>
+</body>
+</html>
