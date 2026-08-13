@@ -1,0 +1,67 @@
+{
+  "municipio": {
+    "nome": "Estrela",
+    "uf": "RS",
+    "codigo_ibge": "4307807"
+  },
+  "gerado_em": "2026-08-13T14:12:44+00:00",
+  "coletas": [
+    {
+      "fonte": "Entrada manual",
+      "status": "ok",
+      "mensagem": "3 indicadores",
+      "executado_em": "2026-08-13T14:12:44+00:00",
+      "quantidade": 3
+    }
+  ],
+  "indicadores": [
+    {
+      "id": "ideb_anos_finais",
+      "categoria": "Educação",
+      "indicador": "IDEB — anos finais",
+      "valor": 52.0,
+      "unidade": "pontos",
+      "periodo": "2023",
+      "fonte": "INEP",
+      "fonte_detalhe": "Rede pública municipal",
+      "url": "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb",
+      "origem": "manual",
+      "formato": "numero",
+      "coletado_em": "2026-08-13",
+      "serie": [],
+      "observacao": ""
+    },
+    {
+      "id": "ideb_anos_iniciais",
+      "categoria": "Educação",
+      "indicador": "IDEB — anos iniciais",
+      "valor": 64.0,
+      "unidade": "pontos",
+      "periodo": "2023",
+      "fonte": "INEP",
+      "fonte_detalhe": "Rede pública municipal",
+      "url": "https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb",
+      "origem": "manual",
+      "formato": "numero",
+      "coletado_em": "2026-08-13",
+      "serie": [],
+      "observacao": "Divulgação bienal."
+    },
+    {
+      "id": "cobertura_esf",
+      "categoria": "Saúde",
+      "indicador": "Cobertura da Estratégia Saúde da Família",
+      "valor": 0.0,
+      "unidade": "%",
+      "periodo": "2025",
+      "fonte": "e-Gestor AB / Ministério da Saúde",
+      "fonte_detalhe": "Preencher com o percentual apurado",
+      "url": "https://egestorab.saude.gov.br/",
+      "origem": "manual",
+      "formato": "percentual",
+      "coletado_em": "2026-08-13",
+      "serie": [],
+      "observacao": "Substituir o valor zero pelo dado apurado."
+    }
+  ]
+}
