@@ -4,17 +4,475 @@
     "uf": "RS",
     "codigo_ibge": "4307807"
   },
-  "gerado_em": "2026-08-13T14:12:44+00:00",
+  "gerado_em": "2026-08-13T17:48:16+00:00",
   "coletas": [
+    {
+      "fonte": "IBGE",
+      "status": "falha",
+      "mensagem": "nenhum indicador obtido do IBGE",
+      "executado_em": "2026-08-13T17:20:27+00:00",
+      "quantidade": 0
+    },
+    {
+      "fonte": "SICONFI",
+      "status": "parcial",
+      "mensagem": "não obtidos: Despesa com pessoal sobre a RCL",
+      "executado_em": "2026-08-13T17:20:36+00:00",
+      "quantidade": 2
+    },
+    {
+      "fonte": "Novo CAGED",
+      "status": "ok",
+      "mensagem": "24 competências em série; 24 nova(s) nesta execução",
+      "executado_em": "2026-08-13T17:48:16+00:00",
+      "quantidade": 4
+    },
     {
       "fonte": "Entrada manual",
       "status": "ok",
       "mensagem": "3 indicadores",
-      "executado_em": "2026-08-13T14:12:44+00:00",
+      "executado_em": "2026-08-13T17:48:16+00:00",
       "quantidade": 3
     }
   ],
   "indicadores": [
+    {
+      "id": "caged_admissoes",
+      "categoria": "Emprego",
+      "indicador": "Admissões no mês",
+      "valor": 597,
+      "unidade": "vínculos",
+      "periodo": "06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Microdados do PDET — apuração pelo código de município 430780",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-13",
+      "serie": [
+        {
+          "periodo": "07/2024",
+          "valor": 599
+        },
+        {
+          "periodo": "08/2024",
+          "valor": 664
+        },
+        {
+          "periodo": "09/2024",
+          "valor": 560
+        },
+        {
+          "periodo": "10/2024",
+          "valor": 612
+        },
+        {
+          "periodo": "11/2024",
+          "valor": 457
+        },
+        {
+          "periodo": "12/2024",
+          "valor": 372
+        },
+        {
+          "periodo": "01/2025",
+          "valor": 655
+        },
+        {
+          "periodo": "02/2025",
+          "valor": 801
+        },
+        {
+          "periodo": "03/2025",
+          "valor": 665
+        },
+        {
+          "periodo": "04/2025",
+          "valor": 709
+        },
+        {
+          "periodo": "05/2025",
+          "valor": 563
+        },
+        {
+          "periodo": "06/2025",
+          "valor": 473
+        },
+        {
+          "periodo": "07/2025",
+          "valor": 576
+        },
+        {
+          "periodo": "08/2025",
+          "valor": 533
+        },
+        {
+          "periodo": "09/2025",
+          "valor": 596
+        },
+        {
+          "periodo": "10/2025",
+          "valor": 631
+        },
+        {
+          "periodo": "11/2025",
+          "valor": 481
+        },
+        {
+          "periodo": "12/2025",
+          "valor": 366
+        },
+        {
+          "periodo": "01/2026",
+          "valor": 597
+        },
+        {
+          "periodo": "02/2026",
+          "valor": 620
+        },
+        {
+          "periodo": "03/2026",
+          "valor": 689
+        },
+        {
+          "periodo": "04/2026",
+          "valor": 607
+        },
+        {
+          "periodo": "05/2026",
+          "valor": 636
+        },
+        {
+          "periodo": "06/2026",
+          "valor": 597
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "caged_desligamentos",
+      "categoria": "Emprego",
+      "indicador": "Desligamentos no mês",
+      "valor": 545,
+      "unidade": "vínculos",
+      "periodo": "06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Microdados do PDET — apuração pelo código de município 430780",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-13",
+      "serie": [
+        {
+          "periodo": "07/2024",
+          "valor": 556
+        },
+        {
+          "periodo": "08/2024",
+          "valor": 612
+        },
+        {
+          "periodo": "09/2024",
+          "valor": 527
+        },
+        {
+          "periodo": "10/2024",
+          "valor": 525
+        },
+        {
+          "periodo": "11/2024",
+          "valor": 510
+        },
+        {
+          "periodo": "12/2024",
+          "valor": 529
+        },
+        {
+          "periodo": "01/2025",
+          "valor": 588
+        },
+        {
+          "periodo": "02/2025",
+          "valor": 582
+        },
+        {
+          "periodo": "03/2025",
+          "valor": 620
+        },
+        {
+          "periodo": "04/2025",
+          "valor": 672
+        },
+        {
+          "periodo": "05/2025",
+          "valor": 693
+        },
+        {
+          "periodo": "06/2025",
+          "valor": 526
+        },
+        {
+          "periodo": "07/2025",
+          "valor": 583
+        },
+        {
+          "periodo": "08/2025",
+          "valor": 600
+        },
+        {
+          "periodo": "09/2025",
+          "valor": 561
+        },
+        {
+          "periodo": "10/2025",
+          "valor": 572
+        },
+        {
+          "periodo": "11/2025",
+          "valor": 496
+        },
+        {
+          "periodo": "12/2025",
+          "valor": 542
+        },
+        {
+          "periodo": "01/2026",
+          "valor": 555
+        },
+        {
+          "periodo": "02/2026",
+          "valor": 583
+        },
+        {
+          "periodo": "03/2026",
+          "valor": 633
+        },
+        {
+          "periodo": "04/2026",
+          "valor": 609
+        },
+        {
+          "periodo": "05/2026",
+          "valor": 563
+        },
+        {
+          "periodo": "06/2026",
+          "valor": 545
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "caged_saldo_12m",
+      "categoria": "Emprego",
+      "indicador": "Saldo acumulado em 12 meses",
+      "valor": 87,
+      "unidade": "vínculos",
+      "periodo": "07/2025 a 06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Soma dos saldos mensais apurados",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-13",
+      "serie": [],
+      "observacao": ""
+    },
+    {
+      "id": "caged_saldo",
+      "categoria": "Emprego",
+      "indicador": "Saldo de empregos no mês",
+      "valor": 52,
+      "unidade": "vínculos",
+      "periodo": "06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Microdados do PDET — apuração pelo código de município 430780",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-13",
+      "serie": [
+        {
+          "periodo": "07/2024",
+          "valor": 43
+        },
+        {
+          "periodo": "08/2024",
+          "valor": 52
+        },
+        {
+          "periodo": "09/2024",
+          "valor": 33
+        },
+        {
+          "periodo": "10/2024",
+          "valor": 87
+        },
+        {
+          "periodo": "11/2024",
+          "valor": -53
+        },
+        {
+          "periodo": "12/2024",
+          "valor": -157
+        },
+        {
+          "periodo": "01/2025",
+          "valor": 67
+        },
+        {
+          "periodo": "02/2025",
+          "valor": 219
+        },
+        {
+          "periodo": "03/2025",
+          "valor": 45
+        },
+        {
+          "periodo": "04/2025",
+          "valor": 37
+        },
+        {
+          "periodo": "05/2025",
+          "valor": -130
+        },
+        {
+          "periodo": "06/2025",
+          "valor": -53
+        },
+        {
+          "periodo": "07/2025",
+          "valor": -7
+        },
+        {
+          "periodo": "08/2025",
+          "valor": -67
+        },
+        {
+          "periodo": "09/2025",
+          "valor": 35
+        },
+        {
+          "periodo": "10/2025",
+          "valor": 59
+        },
+        {
+          "periodo": "11/2025",
+          "valor": -15
+        },
+        {
+          "periodo": "12/2025",
+          "valor": -176
+        },
+        {
+          "periodo": "01/2026",
+          "valor": 42
+        },
+        {
+          "periodo": "02/2026",
+          "valor": 37
+        },
+        {
+          "periodo": "03/2026",
+          "valor": 56
+        },
+        {
+          "periodo": "04/2026",
+          "valor": -2
+        },
+        {
+          "periodo": "05/2026",
+          "valor": 73
+        },
+        {
+          "periodo": "06/2026",
+          "valor": 52
+        }
+      ],
+      "observacao": "Diferença entre admissões e desligamentos com carteira assinada, consolidando movimentações, declarações fora do prazo e exclusões."
+    },
+    {
+      "id": "siconfi_despesa_total",
+      "categoria": "Finanças públicas",
+      "indicador": "Despesa orçamentária empenhada",
+      "valor": 262366055.26,
+      "unidade": "R$",
+      "periodo": "2025",
+      "fonte": "SICONFI / Tesouro Nacional",
+      "fonte_detalhe": "DCA-Anexo I-D — Despesas Correntes (Despesas Empenhadas)",
+      "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
+      "origem": "automatico",
+      "formato": "moeda",
+      "coletado_em": "2026-08-13",
+      "serie": [
+        {
+          "periodo": "2020",
+          "valor": 135252786.37
+        },
+        {
+          "periodo": "2021",
+          "valor": 141384147.46
+        },
+        {
+          "periodo": "2022",
+          "valor": 167873278.73
+        },
+        {
+          "periodo": "2023",
+          "valor": 200120967.42
+        },
+        {
+          "periodo": "2024",
+          "valor": 256299320.79
+        },
+        {
+          "periodo": "2025",
+          "valor": 262366055.26
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "siconfi_receita_total",
+      "categoria": "Finanças públicas",
+      "indicador": "Receita orçamentária total",
+      "valor": 284795293.55,
+      "unidade": "R$",
+      "periodo": "2025",
+      "fonte": "SICONFI / Tesouro Nacional",
+      "fonte_detalhe": "DCA-Anexo I-C — Receitas Correntes (Receitas Brutas Realizadas)",
+      "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
+      "origem": "automatico",
+      "formato": "moeda",
+      "coletado_em": "2026-08-13",
+      "serie": [
+        {
+          "periodo": "2020",
+          "valor": 148173936.41
+        },
+        {
+          "periodo": "2021",
+          "valor": 166767627.37
+        },
+        {
+          "periodo": "2022",
+          "valor": 189319428.07
+        },
+        {
+          "periodo": "2023",
+          "valor": 225595721.13
+        },
+        {
+          "periodo": "2024",
+          "valor": 291348592.76
+        },
+        {
+          "periodo": "2025",
+          "valor": 284795293.55
+        }
+      ],
+      "observacao": ""
+    },
     {
       "id": "ideb_anos_finais",
       "categoria": "Educação",
