@@ -20,7 +20,7 @@ concurrency:
 jobs:
   coletar:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 350
 
     steps:
       - name: Obter o repositório
@@ -38,7 +38,7 @@ jobs:
       - name: Executar os coletores
         run: python -m coletores.executar ${{ github.event.inputs.fontes }}
 
-      - name: Publicar os dados atualizados
+      - name: Publicar os dados atualizados if: always()
         run: |
           if [ -z "$(git status --porcelain dados/)" ]; then
             echo "Nenhuma alteração nos dados — nada a publicar."
