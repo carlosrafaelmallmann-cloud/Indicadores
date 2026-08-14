@@ -1,2 +1,1 @@
 id,categoria,indicador,valor,unidade,periodo,fonte,fonte_detalhe,url,formato,observacao
-cobertura_esf,Saúde,Cobertura da Estratégia Saúde da Família,0,%,2025,e-Gestor AB / Ministério da Saúde,Preencher com o percentual apurado,https://egestorab.saude.gov.br/,percentual,Substituir o valor zero pelo dado apurado.
