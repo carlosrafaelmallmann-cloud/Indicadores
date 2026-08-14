@@ -38,7 +38,8 @@ jobs:
       - name: Executar os coletores
         run: python -m coletores.executar ${{ github.event.inputs.fontes }}
 
-      - name: Publicar os dados atualizados if: always()
+      - name: Publicar os dados atualizados
+        if: always()
         run: |
           if [ -z "$(git status --porcelain dados/)" ]; then
             echo "Nenhuma alteração nos dados — nada a publicar."
