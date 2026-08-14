@@ -4,13 +4,13 @@
     "uf": "RS",
     "codigo_ibge": "4307807"
   },
-  "gerado_em": "2026-08-14T11:23:23+00:00",
+  "gerado_em": "2026-08-14T11:27:03+00:00",
   "coletas": [
     {
       "fonte": "Entrada manual",
-      "status": "falha",
-      "mensagem": "nenhuma linha válida em manuais.csv",
-      "executado_em": "2026-08-14T11:23:23+00:00",
+      "status": "ok",
+      "mensagem": "nenhum indicador manual cadastrado ainda",
+      "executado_em": "2026-08-14T11:27:03+00:00",
       "quantidade": 0
     }
   ],
