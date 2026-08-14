@@ -123,6 +123,10 @@ class ResultadoColeta:
     mensagem: str = ""
     executado_em: str = field(default_factory=agora_iso)
     indicadores: list[Indicador] = field(default_factory=list)
+    # Bloco livre para painéis que não cabem no formato de cartão
+    # (ex.: a matriz setor × mês do CAGED). Ignorado quando vazio.
+    painel_emprego: dict | None = None
+    painel_educacao: dict | None = None
 
 
 def carregar_anterior() -> dict:

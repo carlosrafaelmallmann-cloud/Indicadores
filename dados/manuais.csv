@@ -1,4 +1,2 @@
 id,categoria,indicador,valor,unidade,periodo,fonte,fonte_detalhe,url,formato,observacao
-ideb_anos_iniciais,Educação,IDEB — anos iniciais,6.4,pontos,2023,INEP,Rede pública municipal,https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb,numero,Divulgação bienal.
-ideb_anos_finais,Educação,IDEB — anos finais,5.2,pontos,2023,INEP,Rede pública municipal,https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb,numero,
 cobertura_esf,Saúde,Cobertura da Estratégia Saúde da Família,0,%,2025,e-Gestor AB / Ministério da Saúde,Preencher com o percentual apurado,https://egestorab.saude.gov.br/,percentual,Substituir o valor zero pelo dado apurado.

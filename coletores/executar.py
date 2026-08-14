@@ -18,7 +18,7 @@ import json
 import logging
 import sys
 
-from . import caged, ibge, manuais, siconfi
+from . import caged, ibge, inep, manuais, siconfi
 from .comum import (ARQ_INDICADORES, COD_IBGE, DIR_DADOS, NOME_MUNICIPIO, UF,
                     agora_iso, carregar_anterior)
 
@@ -28,6 +28,7 @@ FONTES = {
     "ibge": ibge.coletar,
     "siconfi": siconfi.coletar,
     "caged": caged.coletar,
+    "inep": inep.coletar,
     "manuais": manuais.coletar,
 }
 
@@ -42,6 +43,8 @@ def principal(selecionadas: list[str]) -> int:
 
     indicadores: dict[str, dict] = {}
     coletas: list[dict] = []
+    painel_emprego = anterior.get("emprego")
+    painel_educacao = anterior.get("educacao")
     sucessos = 0
 
     for nome in escolhidas:
@@ -60,6 +63,10 @@ def principal(selecionadas: list[str]) -> int:
 
         if resultado.status in {"ok", "parcial"}:
             sucessos += 1
+        if getattr(resultado, "painel_emprego", None):
+            painel_emprego = resultado.painel_emprego
+        if getattr(resultado, "painel_educacao", None):
+            painel_educacao = resultado.painel_educacao
         for indicador in resultado.indicadores:
             indicadores[indicador.id] = indicador.dict()
         coletas.append({"fonte": resultado.fonte, "status": resultado.status,
@@ -89,6 +96,8 @@ def principal(selecionadas: list[str]) -> int:
         "municipio": {"nome": NOME_MUNICIPIO, "uf": UF, "codigo_ibge": COD_IBGE},
         "gerado_em": agora_iso(),
         "coletas": coletas,
+        "emprego": painel_emprego,
+        "educacao": painel_educacao,
         "indicadores": sorted(indicadores.values(), key=chave),
     }
 
