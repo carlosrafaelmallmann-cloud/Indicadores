@@ -1,7 +1,7 @@
 referencia,setor,estoque,observacao
-202012,Total,"Vínculos ativos em 31/12/2020 — preencher com o dado da RAIS ou do Painel do Novo CAGED",
-202012,Agropecuária,vínculos ativos em 31/12/2020 — total e por setor —, obtidos no Painel do Novo CAGED ou na RAIS,
-202012,Indústria,vínculos ativos em 31/12/2020 — total e por setor —, obtidos no Painel do Novo CAGED ou na RAIS,
-202012,Construção,vínculos ativos em 31/12/2020 — total e por setor —, obtidos no Painel do Novo CAGED ou na RAIS,
-202012,Comércio,vínculos ativos em 31/12/2020 — total e por setor —, obtidos no Painel do Novo CAGED ou na RAIS,
-202012,Serviços,vínculos ativos em 31/12/2020 — total e por setor —, obtidos no Painel do Novo CAGED ou na RAIS,
+202012,Total,,"Vínculos ativos em 31/12/2020. Preencher com o dado da RAIS ou do Painel do Novo CAGED."
+202012,Agropecuária,,"Vínculos ativos em 31/12/2020, total e por setor, obtidos no Painel do Novo CAGED ou na RAIS."
+202012,Indústria,,"Vínculos ativos em 31/12/2020, total e por setor, obtidos no Painel do Novo CAGED ou na RAIS."
+202012,Construção,,"Vínculos ativos em 31/12/2020, total e por setor, obtidos no Painel do Novo CAGED ou na RAIS."
+202012,Comércio,,"Vínculos ativos em 31/12/2020, total e por setor, obtidos no Painel do Novo CAGED ou na RAIS."
+202012,Serviços,,"Vínculos ativos em 31/12/2020, total e por setor, obtidos no Painel do Novo CAGED ou na RAIS."
