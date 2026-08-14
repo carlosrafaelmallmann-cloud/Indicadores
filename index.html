@@ -282,6 +282,9 @@ const FORMATOS = {
 const formatar = i => (FORMATOS[i.formato] || FORMATOS.numero)(i.valor);
 const escapar = t => String(t ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const dataBR = t => t ? new Date(t).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'}) : '—';
+// Só permite abrir links http(s): qualquer outro esquema (ex.: javascript:) vindo
+// de dados/manuais.csv é descartado, para não virar um vetor de clique malicioso.
+const urlSegura = u => { try { return ['http:','https:'].includes(new URL(u, location.href).protocol) ? u : ''; } catch { return ''; } };
 
 function faisca(serie){
   if (!serie || serie.length < 3) return '';
@@ -326,7 +329,7 @@ function cartao(i, indice){
         <dt>Fonte</dt><dd>${escapar(i.fonte_detalhe || i.fonte)}</dd>
         <dt>Referência</dt><dd>${escapar(i.periodo)}</dd>
         <dt>Coleta</dt><dd>${escapar(i.coletado_em || '—')}${i.conservado ? ' · valor mantido da coleta anterior' : ''}</dd>
-        ${i.url ? `<dt>Consulta</dt><dd><a href="${escapar(i.url)}" target="_blank" rel="noopener">abrir a fonte oficial</a></dd>` : ''}
+        ${urlSegura(i.url) ? `<dt>Consulta</dt><dd><a href="${escapar(urlSegura(i.url))}" target="_blank" rel="noopener">abrir a fonte oficial</a></dd>` : ''}
       </dl>
       ${i.observacao ? `<span class="nota">${escapar(i.observacao)}</span>` : ''}
     </span>
