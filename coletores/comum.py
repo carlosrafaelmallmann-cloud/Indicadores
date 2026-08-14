@@ -74,8 +74,13 @@ SESSAO.headers.update(
 
 
 def buscar_json(url: str, params: dict | None = None, tentativas: int = 4,
-                espera: float = 3.0, timeout: int = 90) -> Any:
-    """GET com retentativa exponencial. Levanta exceção após esgotar tentativas."""
+                espera: float = 8.0, timeout: int = 90) -> Any:
+    """GET com retentativa exponencial. Levanta exceção após esgotar tentativas.
+
+    Em caso de erro HTTP, registra um trecho do corpo da resposta — útil para
+    diagnosticar bloqueios por WAF/limitação de taxa, que costumam trazer a
+    razão do bloqueio no corpo, diferente de uma falha de rede comum.
+    """
     ultimo_erro: Exception | None = None
     for tentativa in range(1, tentativas + 1):
         try:
@@ -84,11 +89,19 @@ def buscar_json(url: str, params: dict | None = None, tentativas: int = 4,
             return resposta.json()
         except Exception as erro:  # noqa: BLE001
             ultimo_erro = erro
+            corpo = ""
+            resposta_erro = getattr(erro, "response", None)
+            if resposta_erro is not None:
+                corpo = (resposta_erro.text or "")[:300].replace("\n", " ")
             if tentativa < tentativas:
                 pausa = espera * tentativa
-                logging.warning("falha em %s (tentativa %d/%d): %s — nova tentativa em %.0fs",
-                                url, tentativa, tentativas, erro, pausa)
+                logging.warning("falha em %s (tentativa %d/%d): %s%s — nova tentativa em %.0fs",
+                                url, tentativa, tentativas, erro,
+                                f" | corpo: {corpo}" if corpo else "", pausa)
                 time.sleep(pausa)
+            else:
+                logging.warning("última tentativa falhou em %s: %s%s",
+                                url, erro, f" | corpo: {corpo}" if corpo else "")
     raise RuntimeError(f"não foi possível obter {url}: {ultimo_erro}")
 
 
@@ -131,10 +144,21 @@ class ResultadoColeta:
 
 def carregar_anterior() -> dict:
     """Lê o JSON publicado na execução anterior (para preservar dados em caso
-    de indisponibilidade de uma fonte)."""
+    de indisponibilidade de uma fonte).
+
+    Se o arquivo estiver corrompido, uma cópia é preservada com carimbo de
+    tempo antes de recomeçar do zero — evita perder silenciosamente todos os
+    indicadores conservados de fontes que não rodaram nesta execução."""
     if ARQ_INDICADORES.exists():
+        texto = ARQ_INDICADORES.read_text(encoding="utf-8")
         try:
-            return json.loads(ARQ_INDICADORES.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            logging.warning("indicadores.json anterior está corrompido — ignorado")
+            return json.loads(texto)
+        except json.JSONDecodeError as erro:
+            copia = ARQ_INDICADORES.with_name(
+                f"indicadores.corrompido.{hoje()}.json")
+            copia.write_text(texto, encoding="utf-8")
+            logging.error(
+                "indicadores.json anterior está corrompido (%s) — cópia salva em "
+                "%s; todos os indicadores conservados desta execução serão perdidos "
+                "até a próxima coleta completa", erro, copia)
     return {}
