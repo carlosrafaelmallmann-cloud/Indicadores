@@ -65,8 +65,19 @@ def coletar() -> ResultadoColeta:
         ))
 
     if not indicadores:
-        return ResultadoColeta(fonte="Entrada manual", status="falha",
-                               mensagem="nenhuma linha válida em manuais.csv")
+        if descartadas:
+            # Havia linhas no arquivo, mas nenhuma ficou válida (id ou valor
+            # ausente em todas) — isso é sinal de erro de preenchimento.
+            return ResultadoColeta(
+                fonte="Entrada manual", status="falha",
+                mensagem=f"{descartadas} linha(s) descartada(s); nenhum "
+                         "indicador válido em manuais.csv")
+        # Arquivo existe e está com apenas o cabeçalho (ou vazio) — não é uma
+        # falha, é apenas o estado inicial antes de qualquer dado ser
+        # cadastrado pela interface web do GitHub.
+        return ResultadoColeta(
+            fonte="Entrada manual", status="ok",
+            mensagem="nenhum indicador manual cadastrado ainda")
 
     mensagem = f"{len(indicadores)} indicadores"
     if descartadas:
