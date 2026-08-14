@@ -4,19 +4,437 @@
     "uf": "RS",
     "codigo_ibge": "4307807"
   },
-  "gerado_em": "2026-08-14T02:25:01+00:00",
+  "gerado_em": "2026-08-14T05:29:38+00:00",
   "coletas": [
+    {
+      "fonte": "IBGE",
+      "status": "falha",
+      "mensagem": "nenhum indicador obtido do IBGE",
+      "executado_em": "2026-08-14T03:39:19+00:00",
+      "quantidade": 0
+    },
+    {
+      "fonte": "SICONFI",
+      "status": "parcial",
+      "mensagem": "não obtidos: Despesa com pessoal sobre a RCL",
+      "executado_em": "2026-08-14T03:39:25+00:00",
+      "quantidade": 2
+    },
+    {
+      "fonte": "Novo CAGED",
+      "status": "ok",
+      "mensagem": "66 competências apuradas; 66 nova(s) nesta execução",
+      "executado_em": "2026-08-14T05:29:38+00:00",
+      "quantidade": 2
+    },
+    {
+      "fonte": "INEP / IDEB",
+      "status": "falha",
+      "mensagem": "sem dados: deposite as planilhas em dados/inep/ ou preencha dados/ideb.csv",
+      "executado_em": "2026-08-14T05:29:38+00:00",
+      "quantidade": 0
+    },
     {
       "fonte": "Entrada manual",
       "status": "ok",
       "mensagem": "1 indicadores",
-      "executado_em": "2026-08-14T02:25:01+00:00",
+      "executado_em": "2026-08-14T05:29:38+00:00",
       "quantidade": 1
     }
   ],
-  "emprego": null,
+  "emprego": {
+    "atualizado_ate": "06/2026",
+    "setores": [
+      "Agropecuária",
+      "Indústria",
+      "Construção",
+      "Comércio",
+      "Serviços",
+      "Total"
+    ],
+    "mensal": {
+      "ano": 2026,
+      "meses": [
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06"
+      ],
+      "linhas": [
+        {
+          "setor": "Agropecuária",
+          "saldos": [
+            -2,
+            1,
+            0,
+            7,
+            2,
+            -6
+          ],
+          "acumulado": [
+            -2,
+            -1,
+            -1,
+            6,
+            8,
+            2
+          ],
+          "total": 2
+        },
+        {
+          "setor": "Indústria",
+          "saldos": [
+            27,
+            33,
+            38,
+            19,
+            48,
+            32
+          ],
+          "acumulado": [
+            27,
+            60,
+            98,
+            117,
+            165,
+            197
+          ],
+          "total": 197
+        },
+        {
+          "setor": "Construção",
+          "saldos": [
+            5,
+            13,
+            11,
+            2,
+            5,
+            8
+          ],
+          "acumulado": [
+            5,
+            18,
+            29,
+            31,
+            36,
+            44
+          ],
+          "total": 44
+        },
+        {
+          "setor": "Comércio",
+          "saldos": [
+            -9,
+            -4,
+            -7,
+            -40,
+            -13,
+            -1
+          ],
+          "acumulado": [
+            -9,
+            -13,
+            -20,
+            -60,
+            -73,
+            -74
+          ],
+          "total": -74
+        },
+        {
+          "setor": "Serviços",
+          "saldos": [
+            21,
+            -6,
+            14,
+            10,
+            31,
+            19
+          ],
+          "acumulado": [
+            21,
+            15,
+            29,
+            39,
+            70,
+            89
+          ],
+          "total": 89
+        },
+        {
+          "setor": "Total",
+          "saldos": [
+            42,
+            37,
+            56,
+            -2,
+            73,
+            52
+          ],
+          "acumulado": [
+            42,
+            79,
+            135,
+            133,
+            206,
+            258
+          ],
+          "total": 258
+        }
+      ]
+    },
+    "anual": {
+      "anos": [
+        "2021",
+        "2022",
+        "2023",
+        "2024",
+        "2025",
+        "2026"
+      ],
+      "linhas": [
+        {
+          "setor": "Agropecuária",
+          "valores": [
+            2,
+            4,
+            1,
+            -8,
+            -13,
+            2
+          ]
+        },
+        {
+          "setor": "Indústria",
+          "valores": [
+            212,
+            88,
+            41,
+            -171,
+            45,
+            197
+          ]
+        },
+        {
+          "setor": "Construção",
+          "valores": [
+            27,
+            -29,
+            19,
+            4,
+            -70,
+            44
+          ]
+        },
+        {
+          "setor": "Comércio",
+          "valores": [
+            104,
+            40,
+            16,
+            49,
+            92,
+            -74
+          ]
+        },
+        {
+          "setor": "Serviços",
+          "valores": [
+            311,
+            211,
+            280,
+            -35,
+            -40,
+            89
+          ]
+        },
+        {
+          "setor": "Total",
+          "valores": [
+            656,
+            314,
+            357,
+            -161,
+            14,
+            258
+          ]
+        }
+      ]
+    },
+    "estoque": {
+      "disponivel": false,
+      "observacao": "Para exibir o estoque, informe em dados/estoque_base.csv o número de vínculos ativos numa data-base da RAIS. O CAGED registra movimentações, não estoque.",
+      "pontos": []
+    }
+  },
   "educacao": null,
   "indicadores": [
+    {
+      "id": "caged_saldo_acumulado_ano",
+      "categoria": "Emprego",
+      "indicador": "Saldo de empregos acumulado em 2026",
+      "valor": 258,
+      "unidade": "vínculos",
+      "periodo": "janeiro a 06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Microdados do PDET — soma dos saldos mensais do exercício",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-14",
+      "serie": [
+        {
+          "periodo": "01/2026",
+          "valor": 42
+        },
+        {
+          "periodo": "02/2026",
+          "valor": 79
+        },
+        {
+          "periodo": "03/2026",
+          "valor": 135
+        },
+        {
+          "periodo": "04/2026",
+          "valor": 133
+        },
+        {
+          "periodo": "05/2026",
+          "valor": 206
+        },
+        {
+          "periodo": "06/2026",
+          "valor": 258
+        }
+      ],
+      "observacao": "Acumulado do ano civil, não dos últimos doze meses. Consolida movimentações, declarações fora do prazo e exclusões."
+    },
+    {
+      "id": "caged_saldo_mes",
+      "categoria": "Emprego",
+      "indicador": "Saldo de empregos no mês",
+      "valor": 52,
+      "unidade": "vínculos",
+      "periodo": "06/2026",
+      "fonte": "Novo CAGED / MTE",
+      "fonte_detalhe": "Microdados do PDET — competência mais recente publicada",
+      "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
+      "origem": "automatico",
+      "formato": "inteiro",
+      "coletado_em": "2026-08-14",
+      "serie": [
+        {
+          "periodo": "01/2026",
+          "valor": 42
+        },
+        {
+          "periodo": "02/2026",
+          "valor": 37
+        },
+        {
+          "periodo": "03/2026",
+          "valor": 56
+        },
+        {
+          "periodo": "04/2026",
+          "valor": -2
+        },
+        {
+          "periodo": "05/2026",
+          "valor": 73
+        },
+        {
+          "periodo": "06/2026",
+          "valor": 52
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "siconfi_despesa_total",
+      "categoria": "Finanças públicas",
+      "indicador": "Despesa orçamentária empenhada",
+      "valor": 262366055.26,
+      "unidade": "R$",
+      "periodo": "2025",
+      "fonte": "SICONFI / Tesouro Nacional",
+      "fonte_detalhe": "DCA-Anexo I-D — Despesas Correntes (Despesas Empenhadas)",
+      "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
+      "origem": "automatico",
+      "formato": "moeda",
+      "coletado_em": "2026-08-14",
+      "serie": [
+        {
+          "periodo": "2020",
+          "valor": 135252786.37
+        },
+        {
+          "periodo": "2021",
+          "valor": 141384147.46
+        },
+        {
+          "periodo": "2022",
+          "valor": 167873278.73
+        },
+        {
+          "periodo": "2023",
+          "valor": 200120967.42
+        },
+        {
+          "periodo": "2024",
+          "valor": 256299320.79
+        },
+        {
+          "periodo": "2025",
+          "valor": 262366055.26
+        }
+      ],
+      "observacao": ""
+    },
+    {
+      "id": "siconfi_receita_total",
+      "categoria": "Finanças públicas",
+      "indicador": "Receita orçamentária total",
+      "valor": 284795293.55,
+      "unidade": "R$",
+      "periodo": "2025",
+      "fonte": "SICONFI / Tesouro Nacional",
+      "fonte_detalhe": "DCA-Anexo I-C — Receitas Correntes (Receitas Brutas Realizadas)",
+      "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
+      "origem": "automatico",
+      "formato": "moeda",
+      "coletado_em": "2026-08-14",
+      "serie": [
+        {
+          "periodo": "2020",
+          "valor": 148173936.41
+        },
+        {
+          "periodo": "2021",
+          "valor": 166767627.37
+        },
+        {
+          "periodo": "2022",
+          "valor": 189319428.07
+        },
+        {
+          "periodo": "2023",
+          "valor": 225595721.13
+        },
+        {
+          "periodo": "2024",
+          "valor": 291348592.76
+        },
+        {
+          "periodo": "2025",
+          "valor": 284795293.55
+        }
+      ],
+      "observacao": ""
+    },
     {
       "id": "cobertura_esf",
       "categoria": "Saúde",
