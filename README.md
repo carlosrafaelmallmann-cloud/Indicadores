@@ -19,6 +19,7 @@ GitHub Actions (dias 5 e 20)
         ├─ coletores/ibge.py      → IBGE, API de Dados Agregados v3
         ├─ coletores/siconfi.py   → Tesouro Nacional, API do SICONFI
         ├─ coletores/caged.py     → PDET/MTE, microdados do Novo CAGED
+        ├─ coletores/inep.py      → INEP, planilhas do IDEB
         └─ coletores/manuais.py   → dados/manuais.csv
                     │
                     ▼
@@ -89,22 +90,53 @@ sobrevive às revisões periódicas das pesquisas.
 | IBGE (agregados 6579 e 5938) | População estimada, PIB, PIB per capita, valor adicionado bruto | Anual |
 | SICONFI — DCA | Receita e despesa orçamentárias do exercício | Anual, homologada no ano seguinte |
 | SICONFI — RGF Anexo 01 | Despesa com pessoal sobre a Receita Corrente Líquida | Quadrimestral |
-| Novo CAGED | Admissões, desligamentos e saldo de empregos | Mensal, com defasagem de 30 a 45 dias |
-| `manuais.csv` | IDEB, saúde, indicadores próprios | Quando você editar |
+| Novo CAGED | Saldo, admissões e desligamentos por setor produtivo, desde 2021 | Mensal, com defasagem de 30 a 45 dias |
+| `estoque_base.csv` | Âncora do estoque de vínculos ativos | Uma vez, ao instalar |
+| INEP / IDEB | Anos iniciais, anos finais e ensino médio: Estrela, RS e Brasil, além do resultado de cada escola | Bienal |
+| `manuais.csv` | Saúde e indicadores próprios da Prefeitura | Quando você editar |
 
 ---
+
+## IDEB
+
+Não há API. As planilhas de divulgação do INEP trazem, cada uma, a série
+completa desde 2005 em colunas — a edição mais recente basta.
+
+A cada divulgação (agosto dos anos ímpares; a vigente é a de 2025):
+
+1. Baixe as planilhas em [Ideb — Resultados](https://www.gov.br/inep/pt-br/areas-de-atuacao/pesquisas-estatisticas-e-indicadores/ideb/resultados),
+   nas três etapas e nos três âmbitos (municípios, escolas, Brasil e estados).
+2. Deposite os arquivos em `dados/inep/` sem renomear.
+3. Dispare o fluxo com `inep` no campo de fontes.
+
+O conversor extrai as linhas de Estrela (redes municipal, estadual e pública),
+do Rio Grande do Sul e do Brasil, além do resultado de cada escola do
+município, e grava tudo em `dados/ideb.csv`. Feito isso, as planilhas podem ser
+apagadas: o CSV é a fonte canônica e também pode ser editado à mão.
 
 ## Limitações conhecidas
 
 - **CAGED.** Não existe API REST; o coletor lê os microdados em `.7z`
-  publicados por FTP em `ftp.mtps.gov.br`. O arquivo mensal é nacional, então a
-  primeira execução, que monta 24 meses de série, é demorada. Depois disso,
-  `dados/caged_serie.csv` funciona como cache e apenas a competência nova é
-  baixada. Se o Ministério alterar o layout do arquivo, o log registra o
-  cabeçalho encontrado.
+  publicados por FTP em `ftp.mtps.gov.br`. O arquivo mensal é nacional e a série
+  começa em janeiro de 2021, de modo que a primeira execução é longa — o limite
+  do fluxo está em 350 minutos. O cache é gravado a cada competência e o commit
+  ocorre mesmo se a execução falhar, então basta disparar o fluxo de novo para
+  retomar de onde parou. Depois da carga inicial, cada execução baixa apenas a
+  competência nova. Se o Ministério alterar o layout, o log registra o cabeçalho
+  encontrado.
+- **Estoque de vínculos.** O CAGED registra movimentações, não estoque. A série
+  é obtida ancorando-se numa data-base da RAIS e somando os saldos mensais
+  seguintes — metodologia do próprio PDET. Preencha `dados/estoque_base.csv` com
+  o número de vínculos ativos em 31/12 do ano anterior ao início da série
+  (por padrão, 31/12/2020), total e por setor. Enquanto os valores forem zero, o
+  painel simplesmente omite o estoque, sem quebrar.
 - **SICONFI.** Os nomes das contas variam entre exercícios. Quando uma conta não
   é localizada, o log lista as contas disponíveis naquele ano — a correção é
   ajustar o trecho procurado em `siconfi.py`.
+- **INEP.** O layout das planilhas muda entre edições. O conversor localiza o
+  cabeçalho pela linha que contém os anos e classifica as colunas pelo bloco
+  (Ideb ou projeções); se não reconhecer a estrutura, registra no log as
+  primeiras linhas do arquivo, o que basta para o ajuste.
 - **Validação em produção.** Os coletores foram escritos a partir da
   documentação oficial das APIs, mas ainda não foram executados contra os
   servidores dos órgãos. A primeira execução do workflow é o teste real; o log

@@ -155,6 +155,53 @@ body{
 .rodape .selo{font-family:var(--dado);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--cinza)}
 .rodape a{color:var(--rio)}
 
+
+/* ---------- Painel setorial do emprego ---------- */
+.bloco-emprego{margin:0 0 48px}
+.bloco-emprego[hidden]{display:none!important}
+.cabeca-bloco{display:flex;flex-wrap:wrap;gap:14px;align-items:baseline;justify-content:space-between;margin-bottom:14px}
+.cabeca-bloco h2{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.03em;margin:0}
+.cabeca-bloco .selo-fonte{font-family:var(--dado);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cinza)}
+.alternador{display:flex;gap:3px}
+.alternador button{
+  background:none;border:1px solid var(--linha);border-radius:999px;padding:4px 13px;
+  font-family:var(--dado);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--tinta-media);cursor:pointer;transition:background .16s,color .16s;
+}
+.alternador button[aria-pressed="true"]{background:var(--tinta);color:var(--papel-alto);border-color:var(--tinta)}
+.alternador button:focus-visible{outline:2px solid var(--rio);outline-offset:2px}
+.rolagem{overflow-x:auto;border:1px solid var(--linha);background:var(--papel-alto);margin-bottom:26px}
+table.matriz{border-collapse:collapse;width:100%;font-family:var(--dado);font-size:.78rem}
+table.matriz caption{
+  text-align:left;padding:11px 14px;font-size:.66rem;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--cinza);border-bottom:1px solid var(--linha);
+}
+table.matriz th,table.matriz td{padding:7px 12px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--linha)}
+table.matriz thead th{font-weight:500;color:var(--cinza);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase}
+table.matriz th.setor{
+  position:sticky;left:0;background:var(--papel-alto);text-align:left;font-weight:600;
+  color:var(--tinta);z-index:1;border-right:1px solid var(--linha);
+}
+table.matriz thead th.setor{color:var(--cinza);font-weight:500}
+table.matriz tbody tr:last-child td,table.matriz tbody tr:last-child th{border-bottom:none}
+table.matriz tr.total th,table.matriz tr.total td{border-top:2px solid var(--tinta);font-weight:600;background:#fff}
+table.matriz td.destaque{background:rgba(21,122,114,.05);font-weight:600}
+table.matriz thead th.destaque{color:var(--rio)}
+.pos{color:var(--rio)}
+.neg{color:var(--tijolo)}
+.zero{color:var(--cinza)}
+.nota-bloco{font-size:.78rem;color:var(--tinta-media);margin:-14px 0 26px;max-width:74ch}
+
+
+/* ---------- Painel de educação ---------- */
+.grafico-caixa{border:1px solid var(--linha);background:var(--papel-alto);padding:18px 16px 12px;margin-bottom:22px}
+.grafico-caixa svg{display:block;width:100%;height:auto;overflow:visible}
+.legenda{display:flex;flex-wrap:wrap;gap:8px 20px;margin:14px 2px 0}
+.legenda span{display:inline-flex;align-items:center;gap:7px;font-family:var(--dado);font-size:.7rem;color:var(--tinta-media)}
+.legenda i{width:15px;height:2.5px;border-radius:2px;flex:0 0 auto}
+.eixo{font-family:var(--dado);font-size:9px;fill:var(--cinza);letter-spacing:.04em}
+.grade-linha{stroke:var(--linha);stroke-width:1}
+
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media (max-width:640px){
   .cabecalho .envoltorio{padding-top:26px;gap:20px}
@@ -186,6 +233,33 @@ body{
 <main class="envoltorio">
   <div class="grade" id="grade"></div>
   <p class="vazio" id="vazio" hidden></p>
+
+  <section class="bloco-emprego" id="bloco-emprego" hidden aria-labelledby="titulo-emprego">
+    <div class="cabeca-bloco">
+      <h2 id="titulo-emprego">Emprego formal por setor</h2>
+      <div class="alternador" role="group" aria-label="Modo de exibição do ano corrente">
+        <button type="button" id="modo-mensal" aria-pressed="true">Saldo do mês</button>
+        <button type="button" id="modo-acumulado" aria-pressed="false">Acumulado</button>
+      </div>
+    </div>
+    <div class="rolagem"><table class="matriz" id="tabela-mensal"></table></div>
+    <div class="rolagem"><table class="matriz" id="tabela-anual"></table></div>
+    <div class="rolagem" id="caixa-estoque"><table class="matriz" id="tabela-estoque"></table></div>
+    <p class="nota-bloco" id="nota-estoque"></p>
+  </section>
+
+  <section class="bloco-emprego" id="bloco-educacao" hidden aria-labelledby="titulo-educacao">
+    <div class="cabeca-bloco">
+      <h2 id="titulo-educacao">IDEB por etapa e por escola</h2>
+      <div class="alternador" id="abas-etapa" role="group" aria-label="Etapa de ensino"></div>
+    </div>
+    <div class="grafico-caixa">
+      <div id="grafico-ideb"></div>
+      <div class="legenda" id="legenda-ideb"></div>
+    </div>
+    <div class="rolagem"><table class="matriz" id="tabela-escolas"></table></div>
+    <p class="nota-bloco">O IDEB combina o desempenho no Saeb com a taxa de aprovação, em escala de 0 a 10, e é apurado a cada dois anos. Escolas sem resultado divulgado em determinada edição aparecem com traço.</p>
+  </section>
 </main>
 
 <footer class="rodape">
@@ -259,6 +333,173 @@ function cartao(i, indice){
   </article>`;
 }
 
+
+/* ------------------ Painel setorial do emprego ------------------ */
+const MESES_EXTENSO = {'01':'jan','02':'fev','03':'mar','04':'abr','05':'mai','06':'jun',
+                       '07':'jul','08':'ago','09':'set','10':'out','11':'nov','12':'dez'};
+let EMPREGO = null, modoAcumulado = false;
+
+const inteiro = v => v.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const comSinal = v => (v > 0 ? '+' : '') + inteiro(v);
+const classeSaldo = v => v > 0 ? 'pos' : (v < 0 ? 'neg' : 'zero');
+
+function celulaSaldo(valor, destaque){
+  return `<td class="${classeSaldo(valor)}${destaque ? ' destaque' : ''}">${comSinal(valor)}</td>`;
+}
+
+function tabelaMensal(){
+  const m = EMPREGO.mensal;
+  const campo = modoAcumulado ? 'acumulado' : 'saldos';
+  const legenda = modoAcumulado
+    ? `Acumulado de ${m.ano}, mês a mês`
+    : `Saldo mensal de ${m.ano}`;
+  const cabecalho = m.meses.map(mes => `<th>${MESES_EXTENSO[mes] || mes}</th>`).join('');
+  const corpo = m.linhas.map(linha => `
+    <tr class="${linha.setor === 'Total' ? 'total' : ''}">
+      <th class="setor" scope="row">${escapar(linha.setor)}</th>
+      ${linha[campo].map(v => celulaSaldo(v, false)).join('')}
+      ${celulaSaldo(linha.total, true)}
+    </tr>`).join('');
+  return `<caption>${legenda} · vínculos celetistas</caption>
+    <thead><tr><th class="setor">Setor</th>${cabecalho}<th class="destaque">No ano</th></tr></thead>
+    <tbody>${corpo}</tbody>`;
+}
+
+function tabelaAnual(){
+  const a = EMPREGO.anual;
+  const cabecalho = a.anos.map(ano => `<th>${ano}</th>`).join('');
+  const corpo = a.linhas.map(linha => `
+    <tr class="${linha.setor === 'Total' ? 'total' : ''}">
+      <th class="setor" scope="row">${escapar(linha.setor)}</th>
+      ${linha.valores.map((v,i) => celulaSaldo(v, i === a.anos.length - 1)).join('')}
+    </tr>`).join('');
+  return `<caption>Saldo acumulado em cada ano · o último exercício ainda está em curso</caption>
+    <thead><tr><th class="setor">Setor</th>${cabecalho}</tr></thead>
+    <tbody>${corpo}</tbody>`;
+}
+
+function tabelaEstoque(){
+  const e = EMPREGO.estoque;
+  if (!e || !e.disponivel || !e.pontos.length) return '';
+  const cabecalho = e.pontos.map(p => `<th>${escapar(p.rotulo)}</th>`).join('');
+  const linhaSetor = setor => `
+    <tr><th class="setor" scope="row">${escapar(setor)}</th>
+      ${e.pontos.map(p => `<td>${inteiro((p.setores || {})[setor] ?? 0)}</td>`).join('')}
+    </tr>`;
+  const setores = Object.keys(e.pontos[0].setores || {});
+  return `<caption>Estoque de vínculos ativos em 31 de dezembro de cada ano</caption>
+    <thead><tr><th class="setor">Setor</th>${cabecalho}</tr></thead>
+    <tbody>
+      ${setores.map(linhaSetor).join('')}
+      <tr class="total"><th class="setor" scope="row">Total</th>
+        ${e.pontos.map(p => `<td class="destaque">${inteiro(p.valor)}</td>`).join('')}
+      </tr>
+    </tbody>`;
+}
+
+function desenharEmprego(){
+  const bloco = document.getElementById('bloco-emprego');
+  const visivel = !!EMPREGO && (categoriaAtiva === 'Todos' || categoriaAtiva === 'Emprego');
+  bloco.hidden = !visivel;
+  if (!visivel) return;
+
+  document.getElementById('tabela-mensal').innerHTML = tabelaMensal();
+  document.getElementById('tabela-anual').innerHTML = tabelaAnual();
+
+  const estoque = tabelaEstoque();
+  document.getElementById('caixa-estoque').hidden = !estoque;
+  document.getElementById('tabela-estoque').innerHTML = estoque;
+  const nota = document.getElementById('nota-estoque');
+  nota.textContent = (EMPREGO.estoque && EMPREGO.estoque.observacao) || '';
+  nota.hidden = !nota.textContent;
+}
+
+function ligarAlternador(){
+  const mensal = document.getElementById('modo-mensal');
+  const acumulado = document.getElementById('modo-acumulado');
+  const aplicar = valor => {
+    modoAcumulado = valor;
+    mensal.setAttribute('aria-pressed', String(!valor));
+    acumulado.setAttribute('aria-pressed', String(valor));
+    desenharEmprego();
+  };
+  mensal.addEventListener('click', () => aplicar(false));
+  acumulado.addEventListener('click', () => aplicar(true));
+}
+
+
+/* ------------------ Painel de educação (IDEB) ------------------ */
+let EDUCACAO = null, etapaAtiva = 0;
+
+function graficoLinhas(anos, series){
+  const L = 720, A = 300, mE = 34, mD = 12, mT = 14, mB = 26;
+  const vistos = series.flatMap(s => s.valores).filter(v => v !== null && v !== undefined);
+  if (!vistos.length) return '<p class="vazio">Sem resultados divulgados.</p>';
+  const min = Math.max(0, Math.floor(Math.min(...vistos) - 1));
+  const max = Math.min(10, Math.ceil(Math.max(...vistos) + 1));
+  const px = i => mE + (anos.length === 1 ? 0 : i * (L - mE - mD) / (anos.length - 1));
+  const py = v => mT + (A - mT - mB) * (1 - (v - min) / ((max - min) || 1));
+
+  const marcas = [];
+  for (let v = min; v <= max; v += (max - min) > 4 ? 2 : 1){
+    marcas.push(`<line class="grade-linha" x1="${mE}" y1="${py(v).toFixed(1)}" x2="${L - mD}" y2="${py(v).toFixed(1)}"></line>
+      <text class="eixo" x="${mE - 7}" y="${(py(v) + 3).toFixed(1)}" text-anchor="end">${v.toFixed(1).replace('.', ',')}</text>`);
+  }
+  const rotulos = anos.map((ano, i) =>
+    `<text class="eixo" x="${px(i).toFixed(1)}" y="${A - 8}" text-anchor="middle">${ano}</text>`);
+
+  const traços = series.map(serie => {
+    const segmentos = [];
+    let atual = [];
+    serie.valores.forEach((v, i) => {
+      if (v === null || v === undefined){ if (atual.length) segmentos.push(atual); atual = []; }
+      else atual.push([px(i), py(v)]);
+    });
+    if (atual.length) segmentos.push(atual);
+    const linhas = segmentos.filter(s => s.length > 1).map(s =>
+      `<polyline points="${s.map(p => p[0].toFixed(1)+','+p[1].toFixed(1)).join(' ')}"
+        fill="none" stroke="${serie.cor}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></polyline>`).join('');
+    const pontos = segmentos.flat().map(p =>
+      `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="${serie.cor}"></circle>`).join('');
+    return linhas + pontos;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${L} ${A}" role="img" aria-label="Evolução do IDEB">
+    ${marcas.join('')}${rotulos.join('')}${traços}</svg>`;
+}
+
+function desenharEducacao(){
+  const bloco = document.getElementById('bloco-educacao');
+  const visivel = !!EDUCACAO && EDUCACAO.etapas.length &&
+                  (categoriaAtiva === 'Todos' || categoriaAtiva === 'Educação');
+  bloco.hidden = !visivel;
+  if (!visivel) return;
+
+  const abas = document.getElementById('abas-etapa');
+  abas.innerHTML = EDUCACAO.etapas.map((e, i) =>
+    `<button type="button" aria-pressed="${i === etapaAtiva}">${escapar(e.etapa)}</button>`).join('');
+  abas.querySelectorAll('button').forEach((botao, i) => {
+    botao.addEventListener('click', () => { etapaAtiva = i; desenharEducacao(); });
+  });
+
+  const bloco_ = EDUCACAO.etapas[etapaAtiva] || EDUCACAO.etapas[0];
+  document.getElementById('grafico-ideb').innerHTML =
+    graficoLinhas(bloco_.anos, bloco_.series);
+  document.getElementById('legenda-ideb').innerHTML = bloco_.series.map(s =>
+    `<span><i style="background:${s.cor}"></i>${escapar(s.rotulo)}</span>`).join('');
+
+  const nota = v => v === null || v === undefined ? '<td class="zero">—</td>'
+    : `<td>${v.toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})}</td>`;
+  const escolas = bloco_.escolas.length
+    ? bloco_.escolas.map(e => `<tr><th class="setor" scope="row">${escapar(e.nome)}</th>
+        ${e.valores.map(nota).join('')}</tr>`).join('')
+    : `<tr><td class="zero" colspan="${bloco_.anos.length + 1}">Nenhuma escola com resultado divulgado nesta etapa.</td></tr>`;
+  document.getElementById('tabela-escolas').innerHTML =
+    `<caption>Resultado por escola · ${escapar(bloco_.etapa.toLowerCase())}</caption>
+     <thead><tr><th class="setor">Escola</th>${bloco_.anos.map(a => `<th>${a}</th>`).join('')}</tr></thead>
+     <tbody>${escolas}</tbody>`;
+}
+
 let TUDO = [], categoriaAtiva = 'Todos';
 
 function desenhar(){
@@ -268,7 +509,10 @@ function desenhar(){
   grade.innerHTML = lista.map(cartao).join('');
   grade.hidden = !lista.length;
   vazio.hidden = !!lista.length;
+  if (!lista.length && ((categoriaAtiva === 'Emprego' && EMPREGO) || (categoriaAtiva === 'Educação' && EDUCACAO))) vazio.hidden = true;
   vazio.textContent = 'Nenhum indicador nesta categoria.';
+  desenharEmprego();
+  desenharEducacao();
   grade.querySelectorAll('.cartao').forEach(cartao => {
     const alternar = () => {
       const verso = cartao.querySelector('.verso');
@@ -329,7 +573,10 @@ function montarEstado(coletas){
       `${m.uf === 'RS' ? 'Rio Grande do Sul' : m.uf} · código IBGE ${m.codigo_ibge || ''}`;
     document.getElementById('assinatura').textContent =
       'Última atualização automática em ' + dataBR(dados.gerado_em);
+    EMPREGO = dados.emprego || null;
+    EDUCACAO = dados.educacao || null;
     montarEstado(dados.coletas);
+    ligarAlternador();
     montarAbas();
     desenhar();
   }catch(erro){
