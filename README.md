@@ -38,8 +38,10 @@ em erro quando nenhuma fonte responde.
 ## Publicação
 
 1. Crie um repositório e envie estes arquivos.
-2. Em **Settings → Actions → General → Workflow permissions**, marque
-   *Read and write permissions* (o workflow precisa gravar o JSON coletado).
+2. O workflow (`coleta.yml`) já declara `permissions: contents: write` para
+   si mesmo, então **não é preciso** marcar *Read and write permissions* como
+   padrão do repositório em Settings → Actions → General — deixe o padrão em
+   *Read-only*, mais restrito, e apenas este workflow será elevado.
 3. Em **Settings → Pages**, escolha *Deploy from a branch*, branch `main`,
    pasta `/ (root)`.
 4. Em **Actions → Coleta de indicadores → Run workflow**, dispare a primeira
@@ -53,6 +55,22 @@ python -m coletores.executar            # todas as fontes
 python -m coletores.executar ibge       # apenas uma
 python -m http.server 8000              # abrir http://localhost:8000
 ```
+
+---
+
+## Testes
+
+Os parsers mais frágeis (localização de linhas do SICONFI, mapeamento de
+cabeçalho das planilhas do INEP, conversão de números do IBGE) têm testes
+unitários sem dependência de rede em `tests/`:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Isso não substitui a validação contra os servidores reais (ver "Validação em
+produção" abaixo), mas pega quebras de lógica pura antes de chegar à
+produção.
 
 ---
 
@@ -148,3 +166,7 @@ apagadas: o CSV é a fonte canônica e também pode ser editado à mão.
 
 Todos os indicadores provêm de bases públicas federais. As fontes são citadas
 em cada cartão do painel, com o período de referência e a data da coleta.
+
+## Licença do código
+
+O código deste repositório é distribuído sob a [licença MIT](LICENSE).
