@@ -4,46 +4,46 @@
     "uf": "RS",
     "codigo_ibge": "4307807"
   },
-  "gerado_em": "2026-08-20T10:10:41+00:00",
+  "gerado_em": "2026-09-05T09:10:47+00:00",
   "coletas": [
     {
       "fonte": "IBGE",
       "status": "falha",
       "mensagem": "nenhum indicador obtido do IBGE",
-      "executado_em": "2026-08-20T10:10:23+00:00",
+      "executado_em": "2026-09-05T09:09:08+00:00",
       "quantidade": 0
     },
     {
       "fonte": "SICONFI",
       "status": "parcial",
       "mensagem": "não obtidos: Despesa com pessoal sobre a RCL",
-      "executado_em": "2026-08-20T10:10:41+00:00",
+      "executado_em": "2026-09-05T09:09:22+00:00",
       "quantidade": 2
     },
     {
       "fonte": "Novo CAGED",
       "status": "ok",
-      "mensagem": "66 competências apuradas; 0 nova(s) nesta execução",
-      "executado_em": "2026-08-20T10:10:41+00:00",
+      "mensagem": "67 competências apuradas; 1 nova(s) nesta execução",
+      "executado_em": "2026-09-05T09:10:47+00:00",
       "quantidade": 2
     },
     {
       "fonte": "INEP / IDEB",
       "status": "falha",
       "mensagem": "sem dados: deposite as planilhas em dados/inep/ ou preencha dados/ideb.csv",
-      "executado_em": "2026-08-20T10:10:41+00:00",
+      "executado_em": "2026-09-05T09:10:47+00:00",
       "quantidade": 0
     },
     {
       "fonte": "Entrada manual",
       "status": "ok",
       "mensagem": "nenhum indicador manual cadastrado ainda",
-      "executado_em": "2026-08-20T10:10:41+00:00",
+      "executado_em": "2026-09-05T09:10:47+00:00",
       "quantidade": 0
     }
   ],
   "emprego": {
-    "atualizado_ate": "06/2026",
+    "atualizado_ate": "07/2026",
     "setores": [
       "Agropecuária",
       "Indústria",
@@ -60,7 +60,8 @@
         "03",
         "04",
         "05",
-        "06"
+        "06",
+        "07"
       ],
       "linhas": [
         {
@@ -71,7 +72,8 @@
             0,
             7,
             2,
-            -6
+            -6,
+            -3
           ],
           "acumulado": [
             -2,
@@ -79,9 +81,10 @@
             -1,
             6,
             8,
-            2
+            2,
+            -1
           ],
-          "total": 2
+          "total": -1
         },
         {
           "setor": "Indústria",
@@ -91,7 +94,8 @@
             38,
             19,
             48,
-            32
+            32,
+            -2
           ],
           "acumulado": [
             27,
@@ -99,9 +103,10 @@
             98,
             117,
             165,
-            197
+            197,
+            195
           ],
-          "total": 197
+          "total": 195
         },
         {
           "setor": "Construção",
@@ -111,7 +116,8 @@
             11,
             2,
             5,
-            8
+            8,
+            -1
           ],
           "acumulado": [
             5,
@@ -119,9 +125,10 @@
             29,
             31,
             36,
-            44
+            44,
+            43
           ],
-          "total": 44
+          "total": 43
         },
         {
           "setor": "Comércio",
@@ -131,7 +138,8 @@
             -7,
             -40,
             -13,
-            -1
+            -1,
+            19
           ],
           "acumulado": [
             -9,
@@ -139,9 +147,10 @@
             -20,
             -60,
             -73,
-            -74
+            -74,
+            -55
           ],
-          "total": -74
+          "total": -55
         },
         {
           "setor": "Serviços",
@@ -151,7 +160,8 @@
             14,
             10,
             31,
-            19
+            19,
+            31
           ],
           "acumulado": [
             21,
@@ -159,9 +169,10 @@
             29,
             39,
             70,
-            89
+            89,
+            120
           ],
-          "total": 89
+          "total": 120
         },
         {
           "setor": "Total",
@@ -171,7 +182,8 @@
             56,
             -2,
             73,
-            52
+            52,
+            44
           ],
           "acumulado": [
             42,
@@ -179,9 +191,10 @@
             135,
             133,
             206,
-            258
+            258,
+            302
           ],
-          "total": 258
+          "total": 302
         }
       ]
     },
@@ -203,7 +216,7 @@
             1,
             -8,
             -13,
-            2
+            -1
           ]
         },
         {
@@ -214,7 +227,7 @@
             41,
             -171,
             45,
-            197
+            195
           ]
         },
         {
@@ -225,7 +238,7 @@
             19,
             4,
             -70,
-            44
+            43
           ]
         },
         {
@@ -236,7 +249,7 @@
             16,
             49,
             92,
-            -74
+            -55
           ]
         },
         {
@@ -247,7 +260,7 @@
             280,
             -35,
             -40,
-            89
+            120
           ]
         },
         {
@@ -258,7 +271,7 @@
             357,
             -161,
             14,
-            258
+            302
           ]
         }
       ]
@@ -275,15 +288,15 @@
       "id": "caged_saldo_acumulado_ano",
       "categoria": "Emprego",
       "indicador": "Saldo de empregos acumulado em 2026",
-      "valor": 258,
+      "valor": 302,
       "unidade": "vínculos",
-      "periodo": "janeiro a 06/2026",
+      "periodo": "janeiro a 07/2026",
       "fonte": "Novo CAGED / MTE",
       "fonte_detalhe": "Microdados do PDET — soma dos saldos mensais do exercício",
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
       "origem": "automatico",
       "formato": "inteiro",
-      "coletado_em": "2026-08-20",
+      "coletado_em": "2026-09-05",
       "serie": [
         {
           "periodo": "01/2026",
@@ -308,6 +321,10 @@
         {
           "periodo": "06/2026",
           "valor": 258
+        },
+        {
+          "periodo": "07/2026",
+          "valor": 302
         }
       ],
       "observacao": "Acumulado do ano civil, não dos últimos doze meses. Consolida movimentações, declarações fora do prazo e exclusões."
@@ -316,15 +333,15 @@
       "id": "caged_saldo_mes",
       "categoria": "Emprego",
       "indicador": "Saldo de empregos no mês",
-      "valor": 52,
+      "valor": 44,
       "unidade": "vínculos",
-      "periodo": "06/2026",
+      "periodo": "07/2026",
       "fonte": "Novo CAGED / MTE",
       "fonte_detalhe": "Microdados do PDET — competência mais recente publicada",
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
       "origem": "automatico",
       "formato": "inteiro",
-      "coletado_em": "2026-08-20",
+      "coletado_em": "2026-09-05",
       "serie": [
         {
           "periodo": "01/2026",
@@ -349,6 +366,10 @@
         {
           "periodo": "06/2026",
           "valor": 52
+        },
+        {
+          "periodo": "07/2026",
+          "valor": 44
         }
       ],
       "observacao": ""
@@ -365,7 +386,7 @@
       "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
       "origem": "automatico",
       "formato": "moeda",
-      "coletado_em": "2026-08-20",
+      "coletado_em": "2026-09-05",
       "serie": [
         {
           "periodo": "2020",
@@ -406,7 +427,7 @@
       "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
       "origem": "automatico",
       "formato": "moeda",
-      "coletado_em": "2026-08-20",
+      "coletado_em": "2026-09-05",
       "serie": [
         {
           "periodo": "2020",
