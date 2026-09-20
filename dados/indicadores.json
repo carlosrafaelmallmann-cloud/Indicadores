@@ -4,41 +4,41 @@
     "uf": "RS",
     "codigo_ibge": "4307807"
   },
-  "gerado_em": "2026-09-05T09:10:47+00:00",
+  "gerado_em": "2026-09-20T13:26:01+00:00",
   "coletas": [
     {
       "fonte": "IBGE",
       "status": "falha",
       "mensagem": "nenhum indicador obtido do IBGE",
-      "executado_em": "2026-09-05T09:09:08+00:00",
+      "executado_em": "2026-09-20T13:25:50+00:00",
       "quantidade": 0
     },
     {
       "fonte": "SICONFI",
       "status": "parcial",
       "mensagem": "não obtidos: Despesa com pessoal sobre a RCL",
-      "executado_em": "2026-09-05T09:09:22+00:00",
+      "executado_em": "2026-09-20T13:26:01+00:00",
       "quantidade": 2
     },
     {
       "fonte": "Novo CAGED",
       "status": "ok",
-      "mensagem": "67 competências apuradas; 1 nova(s) nesta execução",
-      "executado_em": "2026-09-05T09:10:47+00:00",
+      "mensagem": "67 competências apuradas; 0 nova(s) nesta execução",
+      "executado_em": "2026-09-20T13:26:01+00:00",
       "quantidade": 2
     },
     {
       "fonte": "INEP / IDEB",
       "status": "falha",
       "mensagem": "sem dados: deposite as planilhas em dados/inep/ ou preencha dados/ideb.csv",
-      "executado_em": "2026-09-05T09:10:47+00:00",
+      "executado_em": "2026-09-20T13:26:01+00:00",
       "quantidade": 0
     },
     {
       "fonte": "Entrada manual",
       "status": "ok",
       "mensagem": "nenhum indicador manual cadastrado ainda",
-      "executado_em": "2026-09-05T09:10:47+00:00",
+      "executado_em": "2026-09-20T13:26:01+00:00",
       "quantidade": 0
     }
   ],
@@ -296,7 +296,7 @@
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
       "origem": "automatico",
       "formato": "inteiro",
-      "coletado_em": "2026-09-05",
+      "coletado_em": "2026-09-20",
       "serie": [
         {
           "periodo": "01/2026",
@@ -341,7 +341,7 @@
       "url": "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/estatisticas-trabalho/microdados-rais-e-caged",
       "origem": "automatico",
       "formato": "inteiro",
-      "coletado_em": "2026-09-05",
+      "coletado_em": "2026-09-20",
       "serie": [
         {
           "periodo": "01/2026",
@@ -386,7 +386,7 @@
       "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
       "origem": "automatico",
       "formato": "moeda",
-      "coletado_em": "2026-09-05",
+      "coletado_em": "2026-09-20",
       "serie": [
         {
           "periodo": "2020",
@@ -427,7 +427,7 @@
       "url": "https://siconfi.tesouro.gov.br/siconfi/pages/public/consulta_finbra/finbra_list.jsf",
       "origem": "automatico",
       "formato": "moeda",
-      "coletado_em": "2026-09-05",
+      "coletado_em": "2026-09-20",
       "serie": [
         {
           "periodo": "2020",
